@@ -142,6 +142,7 @@
                 </a>
 
                 @auth
+                
                 <div class="dropdown">
                     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
                         @php 
@@ -157,6 +158,7 @@
                         Notification
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
+                    <center><a href="/marknotif" class="btn" style="background-color: white;">Mark All As Read</a></center>
                         @foreach($notifications as $notif)
                             <a class="dropdown-item text-ba" href="{!!$notif->data!!}">{!!$notif->data!!}</a>
                         @endforeach    

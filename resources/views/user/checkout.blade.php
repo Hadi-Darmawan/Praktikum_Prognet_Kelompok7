@@ -64,13 +64,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="checkout_province">Shipping</label>
-                        <select name="shipping_cost" id="kurir" class="dropdown_item_select checkout_input cekongkir">
-                            <option>Select</option>
-                            <option value="7000">JNE Reguler</option>
-                        </select>
-                    </div>
+                        <input type="hidden" name="shipping_cost" value="7000">
                     <li class="d-flex flex-row align-items-center justify-content-start">
                         <input type="hidden" name="sub_total" value="{{$subtotal}}">
                         <input type="hidden" name="total" id="totalbiaya">

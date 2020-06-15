@@ -108,123 +108,141 @@
 			</div>
 		</div>
 				<!-- Product Reviews -->
-		<section id="reviews" class="pb-5 mt-4">
-			<hr>
-				<h4 class="h4-responsive dark-grey-text font-weight-bold my-5 text-center">
-					<strong>Product Reviews</strong>
-				</h4>
-			<hr class="mb-5">
-			<div class="comments-list text-center text-md-left">
-				@if (!$products->product_review->count())
-					<div class="d-flex justify-content-center">    
-						<div class="row mb-5">
-							<p><strong>Belum ada review produk.</strong></p> 
-						</div>
-					</div>
-				@else
-					@foreach ($products->product_review as $item)
-						<div class="row mb-5">
-							<div class="col-sm-2 col-12 mb-3">
-								<img src="{{asset('/uploads/avatars/'.$item->user->profile_image)}}" alt="sample image" class="avatar rounded-circle z-depth-1-half">
-							</div>
-							<div class="col-sm-10 col-12">
-								<a>
-									{{-- @php
-										dd(Auth::user()->id);
-									@endphp --}}
-									<h5 style="color:#333333" class="user-name font-weight-bold">{{$item->user->name}}</h5>
-								</a>
-								<ul class="rating">
-									@for ($i = 0; $i < $item->rate; $i++)
-										<li>
-											<i class="fas fa-star blue-text"></i>
-										</li>
-									@endfor
-								</ul>
-								<input type="hidden" class="rate{{$loop->iteration-1}}" value="{{$item->rate}}">
-								<input type="hidden" class="content{{$loop->iteration-1}}" value="{{$item->content}}">
-								<input type="hidden" class="review_id{{$loop->iteration-1}}" value="{{$item->id}}">
-								<div class="card-data">
-									<ul class="list-unstyled mb-1">
-										<li class="comment-date font-small grey-text">
-										<i class="far fa-clock-o"></i> {{$item->created_at}}</li>
-									</ul>
-								</div>
-								<p class="dark-grey-text article">{{$item->content}}</p>
-							</div>
-						</div>
-						@if ($item->response->count())
-							@foreach ($item->response as $balasan)
-								<div class="row mb-5" style="margin-left: 5%">
-									<div class="col-sm-2 col-12 mb-3">
-										<img src="{{asset('/uploads/avatars/'.$balasan->admin->profile_image)}}" alt="sample image" class="avatar rounded-circle z-depth-1-half">
-									</div>
-									<div class="col-sm-10 col-12">
-				
-										<a>
-											<h5 style="color: #333333" class="user-name font-weight-bold">
-												<span style="margin-right:5px;" class="badge success-color">
-													Admin
-												</span>
-												{{$balasan->admin->name}}
-											</h5>
-										</a>
-										<div class="card-data">
-											<ul class="list-unstyled mb-1">
-												<li class="comment-date font-small grey-text">
-												<i class="far fa-clock-o"></i>{{$balasan->created_at}}</li>
-											</ul>
-										</div>
-										<p class="dark-grey-text article">{{$balasan->content}}</p>
-									</div>
-								</div>
-							@endforeach
-						@endif
-					@endforeach
-				@endif
-			</div>
-		</section>
-	</div>
+				<section id="reviews" class="pb-5 mt-4">
 
-	<script src="{{ asset('assets/User/js/jquery-3.2.1.min.js')}}"></script>
-	<script src="{{ asset('assets/User/styles/bootstrap4/popper.js')}}"></script>
-	<script src="{{ asset('assets/User/styles/bootstrap4/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('assets/User/plugins/greensock/TweenMax.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/greensock/TimelineMax.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/scrollmagic/ScrollMagic.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/greensock/animation.gsap.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/greensock/ScrollToPlugin.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/OwlCarousel2-2.2.1/owl.carousel.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/Isotope/isotope.pkgd.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/easing/easing.js')  }}"></script>
-	<script src="{{ asset('assets/User/plugins/parallax-js-master/parallax.min.js')  }}"></script>
-	<script src="{{ asset('assets/User/js/product.js')  }}"></script>
-	<script>
-		jQuery(document).ready(function(e){
-			jQuery('#ajaxSubmit').click(function(e){
-				e.preventDefault();
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				jQuery.ajax({
-					url: "{{url('/tambah_cart')}}",
-					method: 'post',
-					data: {
-						product_id: jQuery('#product_id').val(),
-						user_id: jQuery('#user_id').val(),
-					},
-					success: function(result){
-						jQuery('#jumlahcart').text(result.jumlah);
-					}
-				});
-			});
-			jQuery('.tombol1').click(function(e){
-					e.preventDefault();
-					alert('Login terlebih dahulu');
-					window.location = "{{url('/login')}}"
-			});
-		});
-	</script>
+<hr>
+
+<h4 class="h4-responsive dark-grey-text font-weight-bold my-5 text-center">
+
+  <strong>Product Reviews</strong>
+
+</h4>
+
+<hr class="mb-5">
+
+<!-- Main wrapper -->
+<div class="comments-list text-center text-md-left">
+  @if (!$products->product_review->count())
+	<div class="d-flex justify-content-center">    
+	  <div class="row mb-5">
+		   <p><strong>Belum ada review produk.</strong></p> 
+	  </div>
+	</div>
+  @else
+	@foreach ($products->product_review as $item)
+	  <!-- First row -->
+	  <div class="row mb-5">
+		
+		<!-- Image column -->
+		<!-- Image column -->
+
+		<!-- Content column -->
+		<div class="col-sm-10 col-12">
+
+		  <a>
+			{{-- @php
+				dd(Auth::user()->id);
+			@endphp --}}
+			<h5 style="color:#333333" class="user-name font-weight-bold">{{$item->user->name}} 
+			</h5>
+
+		  </a>
+			<ul class="list-unstyled mb-1">
+			  <li class="comment-date font-small grey-text">
+				<i class=""></i>Pada: {{$item->created_at}}</li>
+			</ul>
+
+		  <p class="dark-grey-text article">Review: {{$item->content}}</p>
+
+		</div>
+		<!-- Content column -->
+
+	  </div>
+	  <!-- First row -->
+		  @if ($item->response->count())
+			<!-- Balasan -->
+			@foreach ($item->response as $balasan)
+			<div class="row mb-5 text-right">
+			  
+			  <!-- Image column -->
+			  <!-- Image column -->
+
+			  <!-- Content column -->
+			  <div class="col-sm-12 col-12">
+
+				<a>
+
+				  <h5 style="color: #333333" class="user-name font-weight-bold"><span style="margin-right:5px;" class="badge success-color">Admin</span>{{$balasan->admin->name}}</h5>
+
+				</a>
+				<!-- Rating -->
+				<div class="card-data">
+				  <ul class="list-unstyled mb-1">
+					<li class="comment-date font-small grey-text">
+					  <i class=""></i>Pada: {{$balasan->created_at}}</li>
+				  </ul>
+				</div>
+
+				<p class="dark-grey-text article">Balasan: {{$balasan->content}}</p>
+
+			  </div>
+			  <!-- Content column -->
+
+			</div>
+
+			@endforeach
+			<!-- Balasan -->
+
+		  @endif
+
+	@endforeach
+
+  @endif
+
+</div>
+<!-- Main wrapper -->
+
+</section>
+<script src="{{ asset('assets/User/js/jquery-3.2.1.min.js')}}"></script>
+<script src="{{ asset('assets/User/styles/bootstrap4/popper.js')}}"></script>
+<script src="{{ asset('assets/User/styles/bootstrap4/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/User/plugins/greensock/TweenMax.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/greensock/TimelineMax.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/scrollmagic/ScrollMagic.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/greensock/animation.gsap.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/greensock/ScrollToPlugin.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/OwlCarousel2-2.2.1/owl.carousel.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/Isotope/isotope.pkgd.min.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/easing/easing.js')  }}"></script>
+<script src="{{ asset('assets/User/plugins/parallax-js-master/parallax.min.js')  }}"></script>
+<script src="{{ asset('assets/User/js/product.js')  }}"></script>
+<script>
+    jQuery(document).ready(function(e){
+        jQuery('#ajaxSubmit').click(function(e){
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            jQuery.ajax({
+                url: "{{url('/tambah_cart')}}",
+                method: 'post',
+                data: {
+                    product_id: jQuery('#product_id').val(),
+                    user_id: jQuery('#user_id').val(),
+                },
+                success: function(result){
+                    jQuery('#jumlahcart').text(result.jumlah);
+                }
+            });
+        });
+
+        jQuery('.tombol1').click(function(e){
+                e.preventDefault();
+                alert('Login terlebih dahulu');
+                window.location = "{{url('/login')}}"
+        });
+    });
+</script>
 @endsection

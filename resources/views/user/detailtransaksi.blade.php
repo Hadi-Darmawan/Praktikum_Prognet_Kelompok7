@@ -163,6 +163,149 @@
     <!-- Modal: Contact form -->
 
     <!-- Modal: Tambah Review -->
+    <div class="container ganti">
+    <section class="section my-5 pb-5">
+      <!-- Shopping Cart table -->
+      <div style="color:#333333;" class="table-responsive">
+        <h1 align="center">Rincian Produk</h1>
+        <table class="table product-table table-cart-v-1">
+          <!-- Table head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th class="font-weight-bold">
+                <strong>Product</strong>
+              </th>
+              <th></th>
+              <th class="font-weight-bold">
+                <strong>Diskon</strong>
+              </th>
+              <th class="font-weight-bold">
+                <strong>Price</strong>
+              </th>
+              <th class="font-weight-bold">
+
+                <strong>QTY</strong>
+
+              </th>  
+              <th></th>
+              @if ($transaksi->status == 'success')
+              <th class="font-weight-bold">
+                <strong>Berikan Review</strong>
+              </th> 
+              @endif
+            </tr>
+
+          </thead>
+          <!-- Table head -->
+
+          <!-- Table body -->
+          <tbody>
+
+            <!-- First row -->
+            @foreach ($transaksi->transaction_detail as $item)
+            <tr>
+              <th scope="row">
+                  @foreach ($item->product->product_image as $image)
+                  
+                      <img style="width:50px; height:50px;" src="{{asset('/uploads/product_images/'.$image->image_name)}}" alt="" class="img-fluid z-depth-0">
+                      @break
+                  @endforeach
+              </th>
+              <td>
+                <h5 class="mt-3">
+                  <input type="hidden" name="id" id="product_id{{$loop->iteration-1}}" value="{{$item->product->id}}">
+                  <strong>{{$item->product->product_name}}</strong>
+                </h5>
+              </td>
+              <td></td>
+              <td>{{$item->discount}}%</td>
+              <td>Rp.{{$item->selling_price}}</td>
+              <td class="text-center text-md-left">
+
+                <span>{{$item->qty}} </span>
+
+              </td>
+              <td></td>
+              @if ($transaksi->status == 'success')
+              <td>
+                  @php
+                      $status = 0;
+                  @endphp
+                  @foreach ($review as $pr)
+                       @php
+                           if($item->product->id == $pr->product_id){
+                              $status = $status + 1;
+                           }else{
+                              $status = $status;
+                           }
+                       @endphp
+                  @endforeach
+                  @if ($status != 0)
+                      
+                      <button class="btn btn-sm btn-success tambah-review" data-toggle="modal" data-target="#modalTambahReview" disabled>Review telah diberikan</button>
+                      
+                  @else
+                      <button class="btn btn-sm btn-success tambah-review" data-toggle="modal" data-target="#modalTambahReview">+Tambah Review</button>
+                      
+                  @endif
+              </td>    
+              @endif
+            </tr>
+            @endforeach
+
+          </tbody>
+          <!-- Table body -->
+
+        </table>
+
+      </div>
+      <!-- Shopping Cart table -->
+
+    </section>
+  </div>
+  <!-- Main Container -->
+
+    <!-- Modal: Contact form -->
+    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog cascading-modal" role="document">
+        <!-- Content -->
+        <div class="modal-content">
+
+          <!-- Header -->
+          <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="">Bukti Pembayaran</h4>
+            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- Body -->
+          <div class="modal-body mb-0">
+            <form action="/transaksi/detail/proof" method="POST" enctype="multipart/form-data">
+              @csrf
+            <div class="md-form form-sm">
+              Masukkan Bukti Pembayaran
+              <input type="hidden" name="id" value="{{$transaksi->id}}">
+              <input type="file" name="file" id="form19" class="form-control form-control-sm" accept=".jpeg,.jpg,.png,.gif" onchange="preview_image(event)" required>
+            </div>
+            <br><br>
+            <div class="text-center mt-1-half">
+              <button type="submit" class="btn btn-info mb-2">Send</button>
+            </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-center">
+            <img src=""  id="output_image" class="mb-2 mw-50 w-50 h-50 rounded">
+          </div>
+        </div>
+        <!-- Content -->
+      </div>
+    </div>
+    <!-- Modal: Contact form -->
+
+    <!-- Modal: Tambah Review -->
     <div class="modal fade" id="modalTambahReview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
@@ -203,6 +346,7 @@
       <!-- Content -->
     </div>
   </div>
+</div>
 <script src="{{ asset ('assets/User/js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{ asset ('assets/User/styles/bootstrap4/popper.js')}}"></script>
 <script src="{{ asset ('assets/User/styles/bootstrap4/bootstrap.min.js')}}"></script>

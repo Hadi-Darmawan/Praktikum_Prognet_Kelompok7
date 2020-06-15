@@ -24,15 +24,15 @@
                 @foreach ($transaksi as $item)
                 <tr> 
                     <td>
-                        @if ($item->status == 'unverified' & $item->timeout > date('Y-m-d H:i:s'))
-                        @php
-                            date_default_timezone_set("Asia/Makassar");
-                            $date1 = new DateTime($item->timeout);
-                            $date2 = new DateTime(date('Y-m-d H:i:s'));
-                            $tenggat = $date1->diff($date2);
-                        @endphp
-                        <span class="badge badge-danger">{{$tenggat->h}} Jam, {{$tenggat->i}} Menit</span>
-                        @endif
+                    @if ($item->status == 'unverified' & $item->timeout > date('Y-m-d H:i:s'))
+                    @php
+                        date_default_timezone_set("Asia/Makassar");
+                        $date1 = new DateTime($item->timeout);
+                        $date2 = new DateTime(date('Y-m-d H:i:s'));
+                        $tenggat = $date1->diff($date2);
+                    @endphp
+                          <span class="badge badge-danger">{{$tenggat->h}} Jam, {{$tenggat->i}} Menit</span>
+                     @endif
                     </td>               
                     <td>{{$item->id}}</td>
                     <td>{{$item->address}}</td>
